@@ -33,10 +33,33 @@ object MyList {
   }
 
   def drop[A](ml: MyList[A], n: Int): MyList[A] = {
-    (1 to n).foldLeft(ml) { (acc, i) => if (acc == Nil) acc else tail(acc) }
+    if (n <= 0) ml
+    else
+      ml match {
+        case Nil => Nil
+        case Cons(h, t) => drop(t, n - 1)
+      }
   }
 
-  def dropWhile[A](l: List[A], f: A => Boolean): List[A] = {
-    ???
+  def dropWhile[A](ml: MyList[A], f: A => Boolean): MyList[A] = {
+    ml match {
+      case Nil => Nil
+      case Cons(h, t) if f(h) => dropWhile(t, f)
+    }
   }
+
+  @annotation.tailrec
+  def foldLeft[A, B](ml: MyList[A], z: B)(f: (B, A) => B): B =
+    ml match {
+      case Nil => z
+      case Cons(h, t) => foldLeft(t, f.apply(z, h))(f)
+    }
+
+  def sumUsingFoldLeft(ints: MyList[Int]): Int = foldLeft(ints, 0)(_ + _)
+
+  def productUsingFoldLeft(ds: MyList[Double]): Double = foldLeft(ds, 1.0d)(_ * _)
+
+  def lengthUsingFoldLeft(ints: MyList[Int]): Int = foldLeft(ints, 0)((acc, _) => acc + 1)
+
+  def appendUsingFoldLeft[A](ml: MyList[A], a: A): MyList[A] = foldLeft(ml, MyList[A]())((acc, h) => Cons(h, Cons(a, Nil)))
 }
