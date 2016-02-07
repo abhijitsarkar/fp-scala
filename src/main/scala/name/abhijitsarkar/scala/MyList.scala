@@ -52,7 +52,7 @@ object MyList {
   def foldLeft[A, B](ml: MyList[A], z: B)(f: (B, A) => B): B =
     ml match {
       case Nil => z
-      case Cons(h, t) => foldLeft(t, f.apply(z, h))(f)
+      case Cons(h, t) => foldLeft(t, f(z, h))(f)
     }
 
   def sumUsingFoldLeft(ints: MyList[Int]): Int = foldLeft(ints, 0)(_ + _)
@@ -61,5 +61,4 @@ object MyList {
 
   def lengthUsingFoldLeft(ints: MyList[Int]): Int = foldLeft(ints, 0)((acc, _) => acc + 1)
 
-  def appendUsingFoldLeft[A](ml: MyList[A], a: A): MyList[A] = foldLeft(ml, MyList[A]())((acc, h) => Cons(h, Cons(a, Nil)))
 }

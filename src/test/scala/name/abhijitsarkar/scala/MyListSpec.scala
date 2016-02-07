@@ -8,7 +8,7 @@ import org.scalatest.{FlatSpec, Matchers}
   * @author Abhijit Sarkar
   */
 class MyListSpec extends FlatSpec with Matchers {
-  "Method tail" should "drop the first element of a list" in {
+  "MyList" should "drop the first element of a list" in {
     val inputAndOutput = Table(
       ("input", "output"),
       (MyList[Int](), Nil),
@@ -21,7 +21,7 @@ class MyListSpec extends FlatSpec with Matchers {
     }
   }
 
-  "Method drop" should "drop the first n elements of a list" in {
+  it should "drop the first n elements of a list" in {
     val inputAndOutput = Table(
       ("input", "n", "output"),
       (MyList[Int](), 1, Nil),
@@ -36,16 +36,4 @@ class MyListSpec extends FlatSpec with Matchers {
     }
   }
 
-  "Method append" should "append an element at the end of a list" in {
-    val inputAndOutput = Table(
-      ("input", "a", "output"),
-      (MyList[Int](), 1, MyList[Int](1)),
-      (MyList[Int](1), 5, MyList[Int](1, 5)),
-      (MyList[Int](1, 2, 3), 5, MyList[Int](1, 2, 3, 5))
-    )
-
-    forAll(inputAndOutput) { (ip, a, op) =>
-      MyList.appendUsingFoldLeft(ip, a) shouldBe op
-    }
-  }
 }

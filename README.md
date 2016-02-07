@@ -6,3 +6,5 @@ References:
 [How does yield work?](http://docs.scala-lang.org/tutorials/FAQ/yield.html)
 
 [A Post About Nothing](http://oldfashionedsoftware.com/2008/08/20/a-post-about-nothing/)
+
+[Effective Scala](http://twitter.github.io/effectivescala/)
